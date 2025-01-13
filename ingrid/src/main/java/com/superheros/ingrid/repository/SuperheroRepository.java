@@ -8,4 +8,5 @@ import com.superheros.ingrid.entity.SuperheroEntity;
 @Repository
 public interface SuperheroRepository extends JpaRepository<SuperheroEntity, Long> {
     // Métodos personalizados, si los necesitas
+     public Optional<SuperheroEntity> findByName(String name);
 }
