@@ -26,6 +26,10 @@ public class SuperheroService {
         return superheroRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Superhero not found with ID: " + id));
     }
+    public SuperheroEntity findByName(String name) {
+        return superheroRepository.findByName(name)
+        .orElseThrow(() -> new RuntimeException("Superhero not found with name: " + name));     
+    }
 
     public SuperheroEntity save(SuperheroEntity superhero) {
         return superheroRepository.save(superhero);
