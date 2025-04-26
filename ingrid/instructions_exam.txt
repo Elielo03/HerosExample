@@ -1,0 +1,100 @@
+Instrucciones
+
+1. Configuración del Proyecto
+- Abre el proyecto proporcionado en tu IDE favorito (IntelliJ IDEA, Eclipse, VS Code, etc.).
+- Asegúrate de que el proyecto funcione correctamente.
+
+2. Implementación de las Entidades (Entities)
+Completa las siguientes entidades en el proyecto:
+
+Student
+- id
+- name
+- age
+- id_address (Relación con Address)
+
+Address
+- id
+- street
+- cp
+- city
+
+Course
+- id
+- title
+- description
+
+
+Enrollment (tabla intermedia M-N)
+- id 
+- student_id (FK → Student)
+- course_id  (FK → Course)
+
+Relaciones:
+- Un Student puede inscribirse en muchos Course.
+- Un Course puede tener muchos Student.
+
+
+
+3. Implementación de los Repositories
+Crea los Repositories correspondientes, extendiendo JpaRepository:
+- StudentRepository
+- AddressRepository
+- CourseRepository
+- EnrollmentRepository
+
+Métodos personalizados sugeridos (a criterio):
+- findByTitle(String title)
+- findByStudentId(Long studentId) en EnrollmentRepository
+- findByCourseId(Long courseId) en EnrollmentRepository
+
+4. Implementación de los Servicios (Services)
+Completa los Services para cada entidad, asegurando que los métodos de persistencia funcionen correctamente:
+- StudentService
+- AddressService
+- CourseService
+- EnrollmentService
+
+
+5. Implementación de los Endpoints
+StudentController (/api/student)
+- GET /getAll
+- GET /getById/{id}
+- PUT /update/{id}
+- POST /save
+
+AddressController (/api/address)
+- POST /save
+- GET /getAll
+
+CourseController (/api/course)
+- POST /save → Crear un nuevo curso.
+
+EnrollmentController (/api/enrollment)
+- POST /save → Inscribir un estudiante en un curso.
+
+
+6. Implementación de Seguridad con JWT
+- Protege todos los endpoints con autenticación JWT.
+- Usa el hash dado para la contraseña del usuario al generar el token:
+  $2a$12$Ffw6TDbg/GBU9VwmXnU8Ceazfl9526Ip4TWvF6Zajmvk.0J4UPmvq -> admin
+
+
+7. Evaluación (10 pts)
+
+1. Protección JWT en GET /api/student/getAll — 1 pts
+2. GET /getAll → Obtener estudiantes — 1 pt
+3. GET /getById/{id} → Obtener estudiante por ID — 1 pt
+4. PUT /update/{id} → Actualizar estudiante — 1 pt
+5. POST /save → Crear estudiante — 1 pt
+
+6. POST /save → Crear dirección — 1 pt
+7. GET /getAll → Obtener direcciones — 1 pt
+8. POST /save → Crear curso— 1 pt
+9. POST /save → Crear un enrollment— 1 pt
+10. GET /getCourseByTitle -> obtener un curso por nombre 1 pt
+
+Deben de funcionar todos los endpoints para que el examen sea valido.
+
+
+

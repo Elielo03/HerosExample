@@ -1,0 +1,99 @@
+Instrucciones
+
+1. Configuración del Proyecto
+- Abre el proyecto proporcionado en tu IDE favorito (IntelliJ IDEA, Eclipse, VS Code, etc.).
+- Asegúrate de que el proyecto funcione correctamente.
+
+2. Implementación de las Entidades (Entities)
+Completa las siguientes entidades en el proyecto:
+
+Product
+- id
+- name
+- description
+- price (BigDecimal)
+- category_id (FK → Category)
+
+Category
+- id
+- name
+
+Order
+- id
+- orderDate (Date)
+- customerName
+- customerEmail
+
+OrderItem (tabla intermedia M–N)
+- id
+- order_id   (FK → Order)
+- product_id (FK → Product)
+- quantity   (Integer)
+
+Relaciones clave:
+- Una Category tiene muchos Product; un Product pertenece a una Category.
+- Un Order puede tener muchos OrderItem; un OrderItem referencia un único Product y un único Order.
+
+3. Implementación de los Repositories
+Crea los repositorios extendiendo JpaRepository:
+- ProductRepository
+- CategoryRepository
+- OrderRepository
+- OrderItemRepository
+
+Método personalizado sugerido:
+- List<Product> findByName(String name);
+
+4. Implementación de los Servicios (Services)
+Completa los servicios para cada entidad, asegurando la lógica de persistencia:
+- ProductService
+- CategoryService
+- OrderService
+- OrderItemService
+
+Validaciones sugeridas:
+- Al crear un OrderItem, verificar que la quantity sea positiva y que el product_id exista.
+- Al guardar un Product, asegurar que no haya otro producto con el mismo name.
+
+5. Implementación de los Endpoints
+
+ProductController (/api/product)
+- GET  /getAll               → Obtener todos los productos.
+- GET  /getById/{id}         → Obtener producto por ID.
+- GET  /getByName/{name}     → Buscar productos por nombre.
+- POST /save                 → Crear un nuevo producto.
+- PUT  /update/{id}          → Actualizar un producto existente.
+- DELETE /delete/{id}        → Eliminar un producto por ID.
+
+CategoryController (/api/category)
+- POST /save                 → Crear una nueva categoría.
+- GET  /getAll               → Obtener todas las categorías.
+
+OrderController (/api/order)
+- POST /save                 → Crear un nuevo pedido.
+- GET  /getAll               → Obtener todos los pedidos.
+
+OrderItemController (/api/orderItem)
+- POST /save                 → Agregar un ítem a un pedido.
+- GET  /getByOrder/{orderId} → Obtener todos los ítems de un pedido.
+
+6. Implementación de Seguridad con JWT
+- Protege todos los endpoints 
+- Usa este hash para el usuario administrador al generar el token:
+  $2a$12$Ffw6TDbg/GBU9VwmXnU8Ceazfl9526Ip4TWvF6Zajmvk.0J4UPmvq  → admin
+
+
+7. Evaluación (10 pts)
+1. JWT protege GET /api/product/getAll                             — 1 pt
+2. GET /getAll → Obtener todos los productos                       — 1 pt
+3. GET /getById/{id} → Obtener producto por ID                     — 1 pt
+4. GET /getByName/{name} → Buscar productos por nombre             — 1 pt
+5. POST /save → Crear un nuevo producto                            — 1 pt
+
+6. POST /save → Crear una nueva categoría                          — 1 pt
+7. GET /getAll → Obtener todas las categorías                      — 1 pt
+8. POST /save → Crear un nuevo pedido                              — 1 pt
+9. POST /save → Agregar un ítem a un pedido (OrderItem)            — 1 pt
+10. GET /getByOrder/{orderId} → Obtener ítems de un pedido         — 1 pt
+
+Nota: Todos los endpoints deben funcionar correctamente para que el examen sea válido.
